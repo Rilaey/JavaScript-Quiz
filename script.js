@@ -117,7 +117,6 @@ function choiceIsCorrect(choiceButton) {
 }
 
 // if answer is wrong
-
 function checkAnswer(eventChoice) {
     let choiceButton = eventChoice.target;
 
