@@ -1,0 +1,35 @@
+body {
+    background-color: #30302f;
+}
+
+.main-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+
+.head-text {
+    font-size: 48px;
+    color: #d6bac1;
+    font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+}
+
+.start {
+    font-size: 24px;
+    font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+    cursor: pointer;
+}
+
+header {
+   display: flex;
+   justify-content: space-between;
+   margin: 30px 20px;
+}
+
+.top-text {
+    color: #d6bac1;
+    font-size: 24px;
+
+}

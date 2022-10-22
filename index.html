@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <a id="highschore" class="top-text">View Highscores</a>
+        <p id="timer" class="timer top-text"></p>
+    </header>
+
+    <section hidden class="main-start" id="main-start">
+        <h1 class="head-text">JavaScript Quiz</h1>
+            <button class="start" id="start">Start Quiz!</button>
+    </section>
+
+    <section hidden class="question-card" id="question-card">
+
+        <h2 id=question-text></h2>
+
+            <div id=quiz-choices>
+                <button id=choice0 class="button choice-button"></button>
+                <button id=choice1 class="button choice-button"></button>
+                <button id=choice2 class="button choice-button"></button>
+                <button id=choice3 class="button choice-button"></button>
+            </div>
+
+            <div id=result-card>
+                <br>
+                <p id=result-text></p>
+            </div>
+
+    </section>
+
+    <section id="result-card" class="results">
+        <h3 id='result-text' class="result-text"></h3>
+    </section>
+
+    <section hidden class="leaderboard-card" id="leaderboard-card">
+
+    </section>
+</body>
+</html>
