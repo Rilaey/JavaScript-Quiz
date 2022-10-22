@@ -6,6 +6,9 @@ let leaderboardCard = document.getElementById('leaderboard-card');
 let startMenu = document.getElementById('main-start');
 let resultCard = document.getElementById('result-card');
 let resultText = document.getElementById('result-text');
+let scoreEl = document.getElementById('score');
+let subButton = document.getElementById('sub-button');
+let inputEl = document.getElementById('init');
 
 let time;
 let currentQuestion;
@@ -116,5 +119,56 @@ function choiceIsCorrect(choiceButton) {
 // if answer is wrong
 
 function checkAnswer(eventChoice) {
+    let choiceButton = eventChoice.target;
+
+    resultCard.style.display = 'block';
+
+    if(choiceIsCorrect(choiceButton)) {
+        resultText.textContent = 'Correct!';
+    } else {
+        resultText.textContent = 'Incorrect';
+        setTimeout(hideResultMessage, 1000);
+
+        if (time >= 10) {
+            time = time - 10;
+            displayTime();
+        } else {
+            time = 0;
+            displayTime();
+            endGame();
+        }
+    }
+        currentQuestion++
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        endGame();
+    }
+}
+
+// when quiz ends, hide all visible cards, clear timer, display scoreboard, and any remaining time if any
+function endGame() {
+    clearInterval(interval);
+    hideCards();
+    leaderboardCard.removeAttribute('hidden');
+    scoreEl.textContent = time;
+}
+
+subButton.addEventListener('click', saveScore);
+
+function saveScore(event) {
+    event.preventDefault();
+
+    if (!inputEl.value) {
+        window.alert('Please provide valid initials.');
+        return;
+    }
+
+    let leaderboardObject = {
+        init: inputEl.value,
+        score: time
+    };
+
     
 }
