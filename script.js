@@ -116,7 +116,7 @@ function choiceIsCorrect(choiceButton) {
     return choiceButton.textContent = questions[currentQuestion].answer;
 }
 
-// if answer is wrong
+// if answer is wronggit 
 function checkAnswer(eventChoice) {
     let choiceButton = eventChoice.target;
 
