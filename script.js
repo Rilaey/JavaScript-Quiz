@@ -3,21 +3,17 @@ let startCard = document.getElementById('start-card');
 let questionCard = document.getElementById('question-card');
 let scoreCard = document.getElementById('score-card');
 let leaderboardCard = document.getElementById('leaderboard-card');
-let startMenu = document.getElementById('main-start');
-let resultCard = document.getElementById('result-card');
-let resultText = document.getElementById('result-text');
-let scoreEl = document.getElementById('score');
-let subButton = document.getElementById('sub-button');
-let inputEl = document.getElementById('init');
 let resultDiv = document.getElementById('result-div');
-let resultMessage = document.getElementById('result-message');
+let resultText = document.getElementById('result-message');
+let scoreEl = document.getElementById('score');
+let inputEl = document.getElementById('init');
 let submitButton = document.getElementById('sub-btn');
 let inputElement = document.getElementById('inits');
 let backBtn = document.getElementById('back-btn');
 let clearBtn = document.getElementById('clear-button');
 let score = document.getElementById('score');
 let leaderboardHref = document.getElementById('leaderboard-href');
-let highscoreArr = document.getElementById("highscore-arr");
+let highscoreArr = document.getElementById('highscore-arr');
 let displayTime = document.getElementById('time');
 
 let time;
@@ -136,10 +132,10 @@ function checkAnswer(eventObject) {
     let optionButton = eventObject.target;
     resultDiv.style.display = "block";
     if (choiceIsCorrect(optionButton)) {
-        resultMessage.textContent = "Correct!";
+        resultText.textContent = "Correct!";
         setTimeout(hideResultText, 1000);
     } else {
-        resultMessage.textContent = "Incorrect!";
+        resultText.textContent = "Incorrect!";
         setTimeout(hideResultText, 1000);
         if (time >= 10) {
             time = time - 10;
@@ -230,8 +226,8 @@ function gatherLeaderboard() {
         return;
     }
 
-    leaderboardArr.sort(function(x, y) {
-        return y.score - x.score;
+    leaderboardArr.sort(function(a, b) {
+        return b.score - a.score;
     });
     return leaderboardArr;
 }
