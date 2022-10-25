@@ -18,4 +18,4 @@
 
 - You can access the JavaScript quiz at this link 
 
-- Screenshot of the deployed applcation 
+- Screenshot of the deployed applcation ![screenshot of javascript quiz](./images/screenshot-of-app.png)
