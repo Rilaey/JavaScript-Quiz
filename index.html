@@ -10,37 +10,47 @@
 </head>
 <body>
     <header>
-        <a id="highschore" class="top-text">View Highscores</a>
-        <p id="timer" class="timer top-text"></p>
+        <a id=leaderboard-href>View Highscores</a>
+
+        <p><span id="time"></span></p>
     </header>
+    
+    <section class="main">
 
-    <section hidden class="main-start" id="main-start">
-        <h1 class="head-text">JavaScript Quiz</h1>
-            <button class="start" id="start">Start Quiz!</button>
-    </section>
+        <section id=start-card class="card">
+            <h2 id=title>JavaScipt Quiz</h2>
+            <p>Test your Javascript knowledge with this fun quiz!</p>
+            <button id=start-btn class="button">Start Quiz</button>
+        </section>
 
-    <section hidden class="question-card" id="question-card">
+        <section id=question-card class="card" hidden>
 
-        <h2 id=question-text></h2>
+            <h2 id=question-text></h2>
 
             <div id=quiz-choices>
-                <button id=choice0 class="button choice-button"></button>
-                <button id=choice1 class="button choice-button"></button>
-                <button id=choice2 class="button choice-button"></button>
-                <button id=choice3 class="button choice-button"></button>
+                <button id=option0 class="button opt-button"></button>
+                <button id=option1 class="button opt-button"></button>
+                <button id=option2 class="button opt-button"></button>
+                <button id=option3 class="button opt-button"></button>
             </div>
 
-            <div id=result-card>
-                <br>
-                <p id=result-text></p>
+            <div id=result-div>
+                <p id=result-message></p>
             </div>
 
-    </section>
+        </section>
 
-    <section id="result-card" class="results">
-        <h3 id='result-text' class="result-text"></h3>
-    </section>
+        <section id=score-card class="card" hidden>
+            <h2>All done!</h2>
+            <p>Your score is <span id=score></span>.</p>
+            <form class="inline-form" id="sub-form">
+                <label for="initials">Enter initials: </label>
+                <input type="text" id="inits">
+                <button id="sub-btn" class="sub-btn button">Submit</button>
+            </form>
+        </section>>
 
+<<<<<<< HEAD
     <section hidden id=score-card class="card">
         <h2>All finished!</h2>
         <p>Your final score is <span id=score></span>.</p>
@@ -53,7 +63,19 @@
     </section>
 
     <section hidden class="leaderboard-card" id="leaderboard-card">
+=======
+        <section id=leaderboard-card class="card" hidden>
+            <h2>Leaderboard</h2>
+            <ol id="highscore-arr">
+            </ol>
+            <div class="end-btns">
+                <button id="clear-button" class="button">Clear Scores</button>
+                <button id="back-btn" class="button">Back</button>
+            </div>
+        </section>
+>>>>>>> b764b45 (finished up touchs on all files)
 
     </section>
+
 </body>
 </html>

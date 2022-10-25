@@ -1,7 +1,7 @@
-// setting varibles to our html ID's
-let timerEl = document.getElementById('timer');
-let startBtn = document.getElementById('start');
+// declare varibales on the global scope
+let startCard = document.getElementById('start-card');
 let questionCard = document.getElementById('question-card');
+let scoreCard = document.getElementById('score-card');
 let leaderboardCard = document.getElementById('leaderboard-card');
 let startMenu = document.getElementById('main-start');
 let resultCard = document.getElementById('result-card');
@@ -9,165 +9,254 @@ let resultText = document.getElementById('result-text');
 let scoreEl = document.getElementById('score');
 let subButton = document.getElementById('sub-button');
 let inputEl = document.getElementById('init');
+let resultDiv = document.getElementById('result-div');
+let resultMessage = document.getElementById('result-message');
+let submitButton = document.getElementById('sub-btn');
+let inputElement = document.getElementById('inits');
+let backBtn = document.getElementById('back-btn');
+let clearBtn = document.getElementById('clear-button');
+let score = document.getElementById('score');
+let leaderboardHref = document.getElementById('leaderboard-href');
+let highscoreArr = document.getElementById("highscore-arr");
+let displayTime = document.getElementById('time');
 
 let time;
-let currentQuestion;
-let leaderboardArray;
 let interval;
+let leaderboardArr;
+let currentQuestion;
 
-// hides result text
-function hideResultMessage () {
-    resultCard.style.display = 'none';
+backBtn.addEventListener('click', returnToStart);
+document.getElementById('start-btn').addEventListener('click',startTest);
+document.getElementById('quiz-choices').addEventListener("click", checkAnswer);
+submitButton.addEventListener("click", storeScore);
+clearBtn.addEventListener("click", clearHighscores);
+leaderboardHref.addEventListener('click', appearLeaderboard);
+
+// on page load hide all cards aside from start card
+
+function hideCards(){
+    startCard.setAttribute("hidden",true);
+    questionCard.setAttribute("hidden",true);
+    scoreCard.setAttribute("hidden",true);
+    leaderboardCard.setAttribute("hidden",true);
 }
 
-// hide everything besides the start 
-function hideCards () {
-    startMenu.setAttribute('hidden', true);
-    questionCard.setAttribute('hidden', true);
-    leaderboardCard.setAttribute('hidden', true);
-}
+// quiz questions in objects
 
-// questions on quiz
-const questions = [{
-    questionText: "Commonly used data types DO NOT include:",
-    options: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-    answer: "3. alerts",
+// question 1 
+let questions = [{
+    questionText: "What are some commonly used data types?",
+    options: ["1. alerts", "2. promts", "3. strings", "4. buttons"],
+    answer: "3. strings",
 },
+// question 2 
 {
-    questionText: "Arrays in JavaScript can be used to store ______.",
-    options: [
-        "1. numbers and strings",
-        "2. other arrays",
-        "3. booleans",
-        "4. all of the above",
-    ],
-    answer: "4. all of the above",
+    questionText: "What HTML element do we use to put JavaScript inside?",
+    options: ["1. <script>", "2. <javascript>", "3. <input>", "4. no element needed",],
+    answer: "1. <script>",
 },
+// question 3 
 {
-    questionText: "String values must be enclosed within _____ when being assigned to variables.",
-    options: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
-    answer: "3. quotes",
+    questionText: "How do you alert a message on page load?",
+    options: ["1. promt('')", "2. alert('')", "3. yell('')", "4. hello('')"],
+    answer: "2. alert('')",
 },
+// question 4 
 {
-    questionText: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    options: [
-        "1. JavaScript",
-        "2. terminal/bash",
-        "3. for loops",
-        "4. console.log",
-    ],
-    answer: "4. console.log",
+    questionText: "What is the correct way to write a function with the name 'test' ?",
+    options: [    "1. enable test()", "2. go test()", "3. function test()", "4. test()",],
+    answer: "3. function test()",
 },
+// question 5 
 {
-    questionText: "Which of the following is a statement that can be used to terminate a loop, switch or label statement?",
-    options: ["1. break", "2. stop", "3. halt", "4. exit"],
-    answer: "1. break",
+    questionText: "How do you write a comment in JavaScript??",
+    options: ["1. ''comment", "2. //comment", "3. ++comment", "4. ==comment"],
+    answer: "2. comment",
 },
 ];
 
-startBtn.addEventListener('click', startGame);
 
-function startGame() {
-   hideCards();
-   questionCard.removeAttribute('hidden');
+// hide results section
+function hideResultText(){
+    resultDiv.style.display = "none";
+}
 
-    //currentQuestion = 0;
-    //showQuestion();
-    
+function startTest(){
+    // removing the hidden attribute so it is the only card shown
+    hideCards();
+    questionCard.removeAttribute("hidden");
+
+    currentQuestion = 0;
+    displayQuestion();
+
+    // when start button is pressed, count down is set to 60 seconds
     time = 60;
+    
+    interval = setInterval(countdown,1000);
 
-    interval = setInterval(countDown, 1000);
-
-    displayTime();
-};
-
-function countDown () {
-    time --;
-    displayTime()
-
-    if(time === 0) {
-        endGame()
-    }
-};
-
-// display the timer on screen
-function displayTime () {
-    timerEl.textContent = time;
+    // initiate displayCount function. so on click countdown will appear in top right of page on start quiz action.
+    displayCount();
 }
 
-// show question and show 4 answers
-function showQuestion () {
+function countdown(){
+    time--;
+    displayCount();
+
+    if(time < 1){
+        endTest();
+    }
+}
+
+function displayCount(){
+    displayTime.textContent = time;
+}
+//display the question and answer option for the current question
+function displayQuestion(){
     let question = questions[currentQuestion];
-    let choices = questions.choices;
+    let options = question.options;
 
-    let questionEl = document.getElementById('question-text');
-    questionEl.textContent = question.questionText;
+    let h2QuestionElement = document.querySelector("#question-text");
+    h2QuestionElement.textContent = question.questionText;
 
-    for (let x = 0; x < choices.length; x++) {
-        let choices = choices[x];
-        let choiceButton = document.getElementById('choice' + x);
-        choiceButton.textContent = choices;
+    for(let x = 0; x < options.length; x++) { 
+        let option = options[x];
+        let optionButton = document.querySelector("#option" + x);
+        optionButton.textContent = option;
+
     }
-};
-
-document.getElementById('quiz-choices').addEventListener('click', checkAnswer);
-
-function choiceIsCorrect(choiceButton) {
-    return choiceButton.textContent = questions[currentQuestion].answer;
 }
 
-// if answer is wronggit 
-function checkAnswer(eventChoice) {
-    let choiceButton = eventChoice.target;
+// compare answer with user selected choice
+function choiceIsCorrect(optionButton) {
+    return optionButton.textContent === questions[currentQuestion].answer;
+}
 
-    resultCard.style.display = 'block';
-
-    if(choiceIsCorrect(choiceButton)) {
-        resultText.textContent = 'Correct!';
+//if answer is incorrect lower timer
+function checkAnswer(eventObject) {
+    let optionButton = eventObject.target;
+    resultDiv.style.display = "block";
+    if (choiceIsCorrect(optionButton)) {
+        resultMessage.textContent = "Correct!";
+        setTimeout(hideResultText, 1000);
     } else {
-        resultText.textContent = 'Incorrect';
-        setTimeout(hideResultMessage, 1000);
-
+        resultMessage.textContent = "Incorrect!";
+        setTimeout(hideResultText, 1000);
         if (time >= 10) {
             time = time - 10;
-            displayTime();
+            displayCount();
         } else {
             time = 0;
-            displayTime();
-            endGame();
+            displayCount();
+            endTest();
         }
     }
-        currentQuestion++
 
+    currentQuestion++;
+  
     if (currentQuestion < questions.length) {
-        showQuestion();
+        displayQuestion();
     } else {
-        endGame();
+        endTest();
     }
 }
 
-// when quiz ends, hide all visible cards, clear timer, display scoreboard, and any remaining time if any
-function endGame() {
+// when test id over, show only score card, clear timeer, and provide score.
+function endTest() {
     clearInterval(interval);
     hideCards();
-    leaderboardCard.removeAttribute('hidden');
-    scoreEl.textContent = time;
+    scoreCard.removeAttribute("hidden");
+    score.textContent = time;
 }
 
-subButton.addEventListener('click', saveScore);
-
-function saveScore(event) {
+function storeScore(event) {
+    //prevent default behaviour of form submission
     event.preventDefault();
 
-    if (!inputEl.value) {
-        window.alert('Please provide valid initials.');
+    //if initials are not valid (nothing is written)
+    if (!inputElement.value) {
+        alert("Please enter your initials before pressing submit!");
         return;
     }
 
-    let leaderboardObject = {
-        init: inputEl.value,
-        score: time
+    //store score and initials in an object
+    let leaderboardItem = {
+        inits: inputElement.value,
+        score: time,
     };
 
-    
+    updateStoredLeaderboard(leaderboardItem);
+
+    hideCards();
+    leaderboardCard.removeAttribute("hidden");
+
+    displayLeaderboard();
 }
+
+//updates local storage with leaderboard entrys
+function updateStoredLeaderboard(leaderboardItem) {
+    let leaderboardArr = getLeaderboard();
+    leaderboardArr.push(leaderboardItem);
+    localStorage.setItem("leaderboardArr", JSON.stringify(leaderboardArr));
+}
+
+
+//get "leaderboardArr" from local storage (if it exists) and parse it into a javascript object using JSON.parse
+function getLeaderboard() {
+    let storedLeaderboard = localStorage.getItem("leaderboardArr");
+    if (storedLeaderboard !== null) {
+        let leaderboardArr = JSON.parse(storedLeaderboard);
+        return leaderboardArr;
+    } else {
+        leaderboardArr = [];
+    }
+    return leaderboardArr;
+}
+
+function displayLeaderboard() {
+    let sortedLeaderboardArr = gatherLeaderboard();
+    highscoreArr.innerHTML = "";
+    for (let x = 0; x < sortedLeaderboardArr.length; x++) {
+        let leaderboardEntry = sortedLeaderboardArr[x];
+        let newListItem = document.createElement("li");
+        newListItem.textContent=leaderboardEntry.inits + leaderboardEntry.score;
+        highscoreArr.append(newListItem);
+    }
+}
+
+//sort leaderboard array from lowest to highest scores
+function gatherLeaderboard() {
+    let leaderboardArr = getLeaderboard();
+    if (!leaderboardArr) {
+        return;
+    }
+
+    leaderboardArr.sort(function(x, y) {
+        return y.score - x.score;
+    });
+    return leaderboardArr;
+}
+
+// clear local storage and display empty leaderboard
+function clearHighscores() {
+    localStorage.clear();
+    displayLeaderboard();
+}
+
+// when user exits leaderboard, show start screen and hide all other cards
+function returnToStart() {
+    hideCards();
+    startCard.removeAttribute("hidden");
+};
+
+function appearLeaderboard() {
+    hideCards();
+    leaderboardCard.removeAttribute("hidden");
+
+    // reset test clock to 0
+    clearInterval(interval);
+    
+    displayCount();
+
+    //display leaderboard on leaderboard card
+    displayLeaderboard();
+};
