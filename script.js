@@ -16,11 +16,13 @@ let leaderboardHref = document.getElementById('leaderboard-href');
 let highscoreArr = document.getElementById('highscore-arr');
 let displayTime = document.getElementById('time');
 
+// declated varibales with no data
 let time;
 let interval;
 let leaderboardArr;
 let currentQuestion;
 
+// click events for buttons
 backBtn.addEventListener('click', returnToStart);
 document.getElementById('start-btn').addEventListener('click',startTest);
 document.getElementById('quiz-choices').addEventListener("click", checkAnswer);
@@ -77,23 +79,25 @@ function hideResultText(){
     resultDiv.style.display = "none";
 }
 
+// function for start button to start test
 function startTest(){
     // removing the hidden attribute so it is the only card shown
     hideCards();
     questionCard.removeAttribute("hidden");
-
+    // start at question with index of 0
     currentQuestion = 0;
     displayQuestion();
 
     // when start button is pressed, count down is set to 60 seconds
     time = 60;
-    
+    // time goes down by 1 every second
     interval = setInterval(countdown,1000);
 
     // initiate displayCount function. so on click countdown will appear in top right of page on start quiz action.
     displayCount();
 }
 
+// function stating if time is less than 0, end the quiz
 function countdown(){
     time--;
     displayCount();
@@ -103,7 +107,8 @@ function countdown(){
     }
 }
 
-function displayCount(){
+// accessing the variable of display time and displaying the time variable
+function displayCount() {
     displayTime.textContent = time;
 }
 //display the question and answer option for the current question
@@ -127,7 +132,7 @@ function choiceIsCorrect(optionButton) {
     return optionButton.textContent === questions[currentQuestion].answer;
 }
 
-//if answer is incorrect lower timer
+//if answer is incorrect lower count
 function checkAnswer(eventObject) {
     let optionButton = eventObject.target;
     resultDiv.style.display = "block";
@@ -146,9 +151,9 @@ function checkAnswer(eventObject) {
             endTest();
         }
     }
-
+    // after answering current question, increment to next question
     currentQuestion++;
-  
+    // when all questions are answered, end test
     if (currentQuestion < questions.length) {
         displayQuestion();
     } else {
@@ -156,7 +161,7 @@ function checkAnswer(eventObject) {
     }
 }
 
-// when test id over, show only score card, clear timeer, and provide score.
+// when test is over, show only score card, clear timer, and show score
 function endTest() {
     clearInterval(interval);
     hideCards();
@@ -181,10 +186,10 @@ function storeScore(event) {
     };
 
     updateStoredLeaderboard(leaderboardItem);
-
+    // hide all cards besides leader board card
     hideCards();
     leaderboardCard.removeAttribute("hidden");
-
+    // show highscorfes
     displayLeaderboard();
 }
 
